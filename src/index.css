@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-app-bg: #f5f7fb;
+  --color-app-card: #ffffff;
+  --color-app-line: #e5e7eb;
+  --color-app-text: #111827;
+  --color-app-muted: #6b7280;
+  --color-app-accent: #2563eb;
+  --color-risk-low: #15803d;
+  --color-risk-medium: #ca8a04;
+  --color-risk-high: #dc2626;
+}
+
+html {
+  color: var(--color-app-text);
+  background: var(--color-app-bg);
+}
+
+body {
+  min-width: 320px;
+  background: var(--color-app-bg);
+}

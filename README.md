@@ -1,63 +1,155 @@
-# TreeStormDMV
+# TreeRisk
 
-## Overview
+TreeRisk is a lightweight browser app for estimating tree failure risk under wind and soil conditions. It reuses the original TreeStormDMV repository's screening-level mechanics, but packages them into a modern, low-cost, deployable MVP.
 
-TreeStormDMV is a MATLAB-based interactive application for modeling tree failure under wind loading. The system combines structural mechanics with environmental factors to estimate when and how trees fail during storms.
+## Repo Audit
 
-The app allows users to explore how geometry, material properties, soil conditions, and wind speed interact to produce either trunk failure or root uprooting.
+The original repository was a MATLAB prototype with one strong workflow:
 
----
+- enter tree geometry, species, root setup, soil, and wind inputs
+- estimate trunk bending demand and root resistance
+- predict which failure mode governs
+- inspect engineering outputs in a single local UI
 
-## Features
+What was missing:
 
-- Interactive UI with sliders and dropdowns for:
-  - tree species (oak, maple, bamboo)
-  - soil condition (dry, normal, saturated)
-  - wind speed
-  - trunk diameter and height
-  - root geometry
+- no deployable web app
+- no frontend build system
+- no reusable component structure
+- no tests for critical model behavior
+- no low-cost deployment path for non-MATLAB users
 
-- Real-time visualization of tree bending behavior
+## MVP Product Definition
 
-- Engineering outputs:
-  - base shear force
-  - bending moment
-  - maximum stress
-  - safety factor
-  - critical wind speed
+### Core use case
 
-- Failure mode prediction:
-  - root uprooting
-  - trunk bending failure
+Analyze one tree scenario quickly and understand:
 
-- NOAA storm data integration (CSV-based)
+- overall risk level
+- dominant failure factor
+- how current wind compares to estimated resistance
 
----
+### Target user
 
-## How to Run
+- grounds and facilities teams
+- arboriculture learners
+- planners or analysts comparing simple storm scenarios
 
-1. Open MATLAB in this folder  
-2. Run:
+### What v1 does
 
-run_TreeStormDMVApp
+- focused two-panel app shell
+- grouped scenario setup inputs
+- advanced controls hidden by default
+- one primary action: `Analyze Risk`
+- one example scenario for first-run clarity
+- one main chart
+- expandable engineering details
+- instant what-if wind slider in the results panel
 
----
+### Deferred to keep complexity low
 
-## Key Insight
+- NOAA CSV ingestion as a first-class feature
+- report export files
+- accounts, backend storage, or databases
+- multi-page dashboards
 
-Large hardwood trees—especially oak—often fail due to root overturning in saturated soil during summer storms, even at moderate wind speeds.
+## Architecture Decision
 
----
+### Chosen architecture
 
-## Files
+Static frontend only with React + Vite + Tailwind CSS.
 
-- TreeStormDMVApp.m  
-- run_TreeStormDMVApp.m  
-- sample_local_observations.csv  
-- sample_noaa_like_template.csv  
+### Why this is cheapest
 
----
+- no server, auth, or database
+- browser-only calculations
+- free-tier friendly hosting
+- minimal maintenance burden
+
+### Why it fits this repo
+
+The original math is deterministic and local. That makes it a strong fit for a static app instead of a backend service.
+
+### Deployment path
+
+Deploy `dist/` to:
+
+- Vercel
+- GitHub Pages
+- Netlify
+- Cloudflare Pages
+
+## Tech Structure
+
+```text
+src/
+  components/
+    AdvancedToggle.tsx
+    EngineeringDetails.tsx
+    ExplanationCard.tsx
+    Navbar.tsx
+    ResultChartCard.tsx
+    RiskSummaryCard.tsx
+    ScenarioForm.tsx
+    SectionCard.tsx
+  core/
+    format.ts
+    model.ts
+    model.test.ts
+    presets.ts
+  App.tsx
+  index.css
+  main.tsx
+```
+
+## Local Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+## Deployment Notes
+
+This app does not require environment variables for v1.
+
+For GitHub Pages, make sure the built `dist/` directory is published.
+
+For Vercel:
+
+- framework preset: `Vite`
+- build command: `npm run build`
+- output directory: `dist`
+
+## Legacy Prototype
+
+The original MATLAB prototype is preserved in [`TreeStormDMVApp.m`](./TreeStormDMVApp.m) as the source reference for the translated model behavior.
+
+## Tradeoffs Made
+
+- kept one main chart instead of multiple engineering plots
+- kept instant interactivity focused on wind speed because it most directly improves the main workflow
+- deferred heavyweight data features to preserve low hosting cost and maintainability
 
 ## License
 
-MIT License
+MIT
