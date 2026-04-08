@@ -1,20 +1,20 @@
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-30 border-b border-gray-200/80 bg-white/90 backdrop-blur-md">
+    <header className="sticky top-0 z-30 border-b border-zinc-800/80 bg-[#09090b]/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 text-xs font-bold tracking-tight text-white sm:h-9 sm:w-9">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 via-blue-500 to-purple-500 text-xs font-bold tracking-tight text-white sm:h-9 sm:w-9">
             TR
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold tracking-tight text-gray-900">TreeRisk</span>
-            <span className="hidden text-[11px] leading-tight text-gray-500 sm:block">Wind stability analysis</span>
+            <span className="text-sm font-semibold tracking-tight text-white">TreeRisk</span>
+            <span className="hidden text-[11px] leading-tight text-zinc-500 sm:block">Wind stability analysis</span>
           </div>
         </div>
 
         <nav className="flex items-center">
           <a
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg px-3 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg px-3 text-sm font-medium text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-white"
             href="https://github.com/mpushkaproxyroxy/TreeStormDMV"
             target="_blank"
             rel="noreferrer"

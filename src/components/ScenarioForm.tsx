@@ -35,11 +35,11 @@ export function ScenarioForm({
     <div className="space-y-4">
       <SectionCard title="Quick Start" description="Load a pre-configured scenario to explore the model.">
         <button
-          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-4 text-sm font-medium text-gray-700 transition-all hover:border-gray-300 hover:bg-gray-100 active:scale-[0.98]"
+          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-zinc-700 bg-zinc-800/50 px-4 text-sm font-medium text-zinc-300 transition-all hover:border-purple-500/50 hover:bg-zinc-800 hover:text-white active:scale-[0.98]"
           onClick={onLoadExample}
           type="button"
         >
-          <svg className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+          <svg className="h-4 w-4 text-purple-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
           </svg>
           {exampleScenario.label}
@@ -50,7 +50,7 @@ export function ScenarioForm({
         <div className="space-y-4">
           <Field label="Species">
             <select
-              className="w-full appearance-none rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+              className="w-full appearance-none rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
               value={value.species}
               onChange={(event) => update('species', event.target.value as Species)}
             >
@@ -63,7 +63,7 @@ export function ScenarioForm({
           <div className="grid grid-cols-2 gap-3">
             <Field label="Height" unit="m">
               <input
-                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+                className="w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
                 type="number"
                 min="0.5"
                 step="0.1"
@@ -74,7 +74,7 @@ export function ScenarioForm({
 
             <Field label="Diameter" unit="cm">
               <input
-                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+                className="w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
                 type="number"
                 min="3"
                 step="1"
@@ -90,7 +90,7 @@ export function ScenarioForm({
         <div className="space-y-4">
           <Field label="Soil type">
             <select
-              className="w-full appearance-none rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+              className="w-full appearance-none rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
               value={value.soilCondition}
               onChange={(event) => update('soilCondition', event.target.value as SoilCondition)}
             >
@@ -103,7 +103,7 @@ export function ScenarioForm({
           <Field label="Moisture level" helper="Higher moisture reduces root anchorage.">
             <div className="flex items-center gap-3">
               <input
-                className="h-1.5 flex-1 cursor-pointer rounded-full bg-gray-200"
+                className="h-1.5 flex-1 cursor-pointer rounded-full"
                 type="range"
                 min="0"
                 max="100"
@@ -111,7 +111,7 @@ export function ScenarioForm({
                 value={value.moistureLevel}
                 onChange={onNumberChange('moistureLevel')}
               />
-              <span className="w-12 text-right text-sm font-medium tabular-nums text-gray-900">
+              <span className="w-12 text-right text-sm font-medium tabular-nums text-white">
                 {value.moistureLevel}%
               </span>
             </div>
@@ -124,7 +124,7 @@ export function ScenarioForm({
           <Field label="Wind speed">
             <div className="flex items-center gap-3">
               <input
-                className="h-1.5 flex-1 cursor-pointer rounded-full bg-gray-200"
+                className="h-1.5 flex-1 cursor-pointer rounded-full"
                 type="range"
                 min="0"
                 max="50"
@@ -132,7 +132,7 @@ export function ScenarioForm({
                 value={value.windSpeedMs}
                 onChange={onNumberChange('windSpeedMs')}
               />
-              <span className="w-16 text-right text-sm font-medium tabular-nums text-gray-900">
+              <span className="w-16 text-right text-sm font-medium tabular-nums text-white">
                 {value.windSpeedMs.toFixed(0)} m/s
               </span>
             </div>
@@ -140,7 +140,7 @@ export function ScenarioForm({
 
           <Field label="Gust factor" helper="Multiplier for peak gust over mean wind.">
             <input
-              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
               type="number"
               min="0.8"
               max="1.6"
@@ -156,7 +156,7 @@ export function ScenarioForm({
         <div className="grid gap-3 sm:grid-cols-2">
           <Field label="Drag coefficient">
             <input
-              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
               type="number"
               min="0.1"
               max="2.5"
@@ -168,7 +168,7 @@ export function ScenarioForm({
 
           <Field label="Root depth" unit="m">
             <input
-              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
               type="number"
               min="0.05"
               max="5"
@@ -180,7 +180,7 @@ export function ScenarioForm({
 
           <Field label="Safety factor">
             <input
-              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+              className="w-full rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
               type="number"
               min="0.8"
               max="2"
@@ -192,7 +192,7 @@ export function ScenarioForm({
 
           <Field label="Root type">
             <select
-              className="w-full appearance-none rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition-colors"
+              className="w-full appearance-none rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-2.5 text-sm text-white transition-colors"
               value={value.rootType}
               onChange={(event) => update('rootType', event.target.value as RootType)}
             >
@@ -205,15 +205,15 @@ export function ScenarioForm({
         </div>
       </AdvancedToggle>
 
-      <div className="sticky bottom-3 z-20 rounded-xl border border-gray-200 bg-white p-4 shadow-lg backdrop-blur-sm lg:static lg:shadow-sm">
+      <div className="sticky bottom-3 z-20 rounded-xl border border-zinc-800 bg-zinc-900/95 p-4 shadow-xl shadow-black/30 backdrop-blur-sm lg:static lg:shadow-lg">
         <button
-          className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-gray-900 px-4 text-sm font-semibold text-white shadow-sm transition-all hover:bg-gray-800 active:scale-[0.98]"
+          className="inline-flex h-12 w-full items-center justify-center rounded-lg bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-500 px-4 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-all hover:shadow-xl hover:shadow-purple-500/30 active:scale-[0.98]"
           onClick={onAnalyze}
           type="button"
         >
           Analyze Risk
         </button>
-        <p className="mt-2.5 text-center text-xs text-gray-500">
+        <p className="mt-2.5 text-center text-xs text-zinc-500">
           Runs instantly in your browser
         </p>
       </div>
@@ -232,12 +232,12 @@ function Field({ label, unit, helper, children }: FieldProps) {
   return (
     <label className="block">
       <span className="mb-1.5 flex items-baseline justify-between">
-        <span className="text-sm font-medium text-gray-700">{label}</span>
-        {unit ? <span className="text-xs text-gray-400">{unit}</span> : null}
+        <span className="text-sm font-medium text-zinc-300">{label}</span>
+        {unit ? <span className="text-xs text-zinc-500">{unit}</span> : null}
       </span>
       {children}
       {helper ? (
-        <span className="mt-1.5 block text-xs leading-relaxed text-gray-400">{helper}</span>
+        <span className="mt-1.5 block text-xs leading-relaxed text-zinc-500">{helper}</span>
       ) : null}
     </label>
   );

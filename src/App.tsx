@@ -37,15 +37,15 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-gray-50 text-gray-900">
+    <div className="min-h-screen overflow-x-hidden bg-[#09090b] text-zinc-100 bg-pattern">
       <Navbar />
 
       <main className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
         <header className="mb-8">
-          <h1 className="text-xl font-semibold tracking-tight text-gray-900 sm:text-2xl">
+          <h1 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
             Analyze Tree Risk
           </h1>
-          <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-gray-500 sm:text-[15px]">
+          <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-[15px]">
             Configure your scenario, run analysis instantly in the browser, and explore the results interactively.
           </p>
         </header>
