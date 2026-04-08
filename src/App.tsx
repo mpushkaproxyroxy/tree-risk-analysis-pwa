@@ -37,30 +37,34 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-slate-50 text-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-gray-50 text-gray-900">
       <Navbar />
 
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-[1.75rem]">Analyze Tree Risk</h1>
-          <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-base">
-            Set up a tree scenario, analyze it instantly in the browser, and review the result without leaving this page.
+      <main className="mx-auto max-w-6xl px-4 py-5 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+        <header className="mb-8">
+          <h1 className="text-xl font-semibold tracking-tight text-gray-900 sm:text-2xl">
+            Analyze Tree Risk
+          </h1>
+          <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-gray-500 sm:text-[15px]">
+            Configure your scenario, run analysis instantly in the browser, and explore the results interactively.
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          <aside className="lg:col-span-4">
-            <ScenarioForm
-              value={draft}
-              advancedOpen={advancedOpen}
-              onAdvancedToggle={() => setAdvancedOpen((value) => !value)}
-              onChange={handleScenarioChange}
-              onAnalyze={analyzeScenario}
-              onLoadExample={loadExampleScenario}
-            />
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
+          <aside className="lg:col-span-4 xl:col-span-4">
+            <div className="lg:sticky lg:top-24">
+              <ScenarioForm
+                value={draft}
+                advancedOpen={advancedOpen}
+                onAdvancedToggle={() => setAdvancedOpen((value) => !value)}
+                onChange={handleScenarioChange}
+                onAnalyze={analyzeScenario}
+                onLoadExample={loadExampleScenario}
+              />
+            </div>
           </aside>
 
-          <section className="space-y-6 lg:col-span-8">
+          <section className="space-y-5 lg:col-span-8 xl:col-span-8">
             <RiskSummaryCard result={liveResult} />
             <ResultChartCard
               result={result}
