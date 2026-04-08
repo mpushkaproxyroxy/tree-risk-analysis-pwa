@@ -4,28 +4,46 @@ import type { AnalysisResult } from '../core/model';
 export function RiskSummaryCard({ result }: { result: AnalysisResult }) {
   const badgeClass =
     result.riskLevel === 'LOW'
-      ? 'bg-emerald-50 text-risk-low'
+      ? 'rounded-full bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200'
       : result.riskLevel === 'MEDIUM'
-        ? 'bg-amber-50 text-risk-medium'
-        : 'bg-red-50 text-risk-high';
+        ? 'rounded-full bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200'
+        : 'rounded-full bg-red-50 text-red-700 ring-1 ring-inset ring-red-200';
 
   return (
-    <div className="rounded-2xl border border-app-line bg-app-card p-6 shadow-sm">
-      <p className="text-sm font-medium text-app-muted">Tree Failure Risk</p>
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Tree failure risk</p>
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <span className={`rounded-full px-3 py-1 text-xs font-semibold tracking-wide ${badgeClass}`}>
+        <span className={`px-3 py-1 text-xs font-semibold tracking-wide ${badgeClass}`}>
           {result.riskLevel}
-        </span>
-        <span className="text-sm text-app-muted">
-          Critical wind {formatSpeedMs(result.governingCriticalWindMs)} / {formatSpeedMph(result.governingCriticalWindMs)}
         </span>
       </div>
 
       <div className="mt-5">
-        <p className="text-sm text-app-muted">Dominant Factor</p>
-        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-app-text">{result.controllingMode}</h2>
-        <p className="mt-3 text-sm leading-6 text-app-muted">{result.governingFactor}</p>
+        <h2 className="text-2xl font-semibold tracking-tight text-slate-900">{result.riskLevel}</h2>
+        <p className="mt-4 text-xs font-medium uppercase tracking-wide text-slate-500">Dominant factor</p>
+        <p className="mt-1 text-base font-semibold text-slate-900">{result.controllingMode}</p>
+        <p className="mt-3 text-sm leading-6 text-slate-600">{result.governingFactor}</p>
       </div>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        <Metric
+          label="Critical wind"
+          value={formatSpeedMs(result.governingCriticalWindMs)}
+          detail={formatSpeedMph(result.governingCriticalWindMs)}
+        />
+        <Metric label="Safety margin" value={`${result.safetyMargin.toFixed(2)}x`} detail="Capacity vs demand" />
+        <Metric label="Base moment" value={`${result.baseMomentKnM.toFixed(1)} kN-m`} detail="Current load state" />
+      </div>
+    </div>
+  );
+}
+
+function Metric({ label, value, detail }: { label: string; value: string; detail: string }) {
+  return (
+    <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</p>
+      <p className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{value}</p>
+      <p className="mt-1 text-xs leading-5 text-slate-500">{detail}</p>
     </div>
   );
 }

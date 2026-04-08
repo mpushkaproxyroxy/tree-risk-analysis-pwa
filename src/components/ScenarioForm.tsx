@@ -32,16 +32,16 @@ export function ScenarioForm({
   }
 
   return (
-    <div className="space-y-4">
-      <SectionCard title="Scenario Setup" description="Enter the basics first. You can tune more later if needed.">
-        <div className="rounded-2xl border border-app-line bg-slate-50 p-4">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div className="space-y-6">
+      <SectionCard title="Scenario Setup" description="Enter a simple scenario, then analyze the risk in one step.">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <div className="flex flex-col gap-3">
             <div>
-              <p className="text-sm font-medium text-app-text">{exampleScenario.label}</p>
-              <p className="text-sm text-app-muted">See how the model works instantly.</p>
+              <p className="text-sm font-medium text-slate-700">{exampleScenario.label}</p>
+              <p className="text-xs leading-5 text-slate-500">See how the model works instantly.</p>
             </div>
             <button
-              className="rounded-xl bg-app-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+              className="inline-flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               onClick={onLoadExample}
               type="button"
             >
@@ -51,11 +51,11 @@ export function ScenarioForm({
         </div>
       </SectionCard>
 
-      <SectionCard title="Tree Properties">
-        <div className="grid gap-4">
+      <SectionCard title="Tree" description="Start with the tree itself: species, height, and trunk diameter.">
+        <div className="space-y-4">
           <Field label="Species">
             <select
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               value={value.species}
               onChange={(event) => update('species', event.target.value as Species)}
             >
@@ -67,7 +67,7 @@ export function ScenarioForm({
 
           <Field label="Height (m)">
             <input
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               type="number"
               min="0.5"
               step="0.1"
@@ -78,7 +78,7 @@ export function ScenarioForm({
 
           <Field label="Diameter (cm)">
             <input
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               type="number"
               min="3"
               step="1"
@@ -89,11 +89,11 @@ export function ScenarioForm({
         </div>
       </SectionCard>
 
-      <SectionCard title="Soil Conditions">
-        <div className="grid gap-4">
+      <SectionCard title="Soil" description="Soil type and moisture level shape how much root support is available.">
+        <div className="space-y-4">
           <Field label="Soil type">
             <select
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               value={value.soilCondition}
               onChange={(event) => update('soilCondition', event.target.value as SoilCondition)}
             >
@@ -103,7 +103,7 @@ export function ScenarioForm({
             </select>
           </Field>
 
-          <Field label={`Moisture level (${value.moistureLevel}%)`}>
+          <Field label={`Moisture level (${value.moistureLevel}%)`} helper="Higher moisture reduces root anchorage in the screening model.">
             <input
               className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200"
               type="range"
@@ -117,8 +117,8 @@ export function ScenarioForm({
         </div>
       </SectionCard>
 
-      <SectionCard title="Wind Conditions">
-        <div className="grid gap-4">
+      <SectionCard title="Wind" description="Set the current wind condition you want to screen against.">
+        <div className="space-y-4">
           <Field label={`Wind speed (${value.windSpeedMs.toFixed(0)} m/s)`}>
             <input
               className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200"
@@ -133,7 +133,7 @@ export function ScenarioForm({
 
           <Field label="Gust factor">
             <input
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               type="number"
               min="0.8"
               max="1.6"
@@ -146,10 +146,10 @@ export function ScenarioForm({
       </SectionCard>
 
       <AdvancedToggle open={advancedOpen} onToggle={onAdvancedToggle}>
-        <div className="grid gap-4">
+        <div className="space-y-4">
           <Field label="Drag coefficient">
             <input
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               type="number"
               min="0.1"
               max="2.5"
@@ -161,7 +161,7 @@ export function ScenarioForm({
 
           <Field label="Root depth (m)">
             <input
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               type="number"
               min="0.05"
               max="5"
@@ -173,7 +173,7 @@ export function ScenarioForm({
 
           <Field label="Safety factor target">
             <input
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               type="number"
               min="0.8"
               max="2"
@@ -185,7 +185,7 @@ export function ScenarioForm({
 
           <Field label="Root type">
             <select
-              className="w-full rounded-xl border border-app-line bg-white px-3 py-2.5 text-sm text-app-text outline-none"
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900"
               value={value.rootType}
               onChange={(event) => update('rootType', event.target.value as RootType)}
             >
@@ -198,25 +198,26 @@ export function ScenarioForm({
         </div>
       </AdvancedToggle>
 
-      <div className="rounded-2xl border border-app-line bg-app-card p-5 shadow-sm">
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
         <button
-          className="w-full rounded-xl bg-app-accent px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+          className="inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800 active:bg-slate-950"
           onClick={onAnalyze}
           type="button"
         >
           Analyze Risk
         </button>
-        <p className="mt-3 text-center text-sm text-app-muted">Runs instantly in your browser.</p>
+        <p className="mt-3 text-center text-xs leading-5 text-slate-500">Runs instantly in your browser.</p>
       </div>
     </div>
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, helper, children }: { label: string; helper?: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-medium text-app-text">{label}</span>
+      <span className="mb-2 block text-sm font-medium text-slate-700">{label}</span>
       {children}
+      {helper ? <span className="mt-1 block text-xs leading-5 text-slate-500">{helper}</span> : null}
     </label>
   );
 }

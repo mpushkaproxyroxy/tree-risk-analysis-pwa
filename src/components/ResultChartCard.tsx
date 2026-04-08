@@ -22,58 +22,61 @@ export function ResultChartCard({
   );
 
   const bars = [
-    { label: 'Current wind', value: liveResult.input.windSpeedMs, tone: 'bg-app-accent' },
+    { label: 'Current wind', value: liveResult.input.windSpeedMs, tone: 'bg-slate-900' },
     { label: 'Root resistance limit', value: result.rootCriticalWindMs, tone: 'bg-emerald-500' },
     { label: 'Trunk resistance limit', value: result.trunkCriticalWindMs, tone: 'bg-slate-700' },
   ];
 
   return (
-    <div className="rounded-2xl border border-app-line bg-app-card p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h3 className="text-base font-semibold text-app-text">Wind vs resistance</h3>
-          <p className="text-sm text-app-muted">Tweak one parameter and see the risk change instantly.</p>
+          <h3 className="text-base font-semibold text-slate-900">Wind vs resistance</h3>
+          <p className="text-sm leading-6 text-slate-600">Tweak one parameter and see how risk changes instantly.</p>
         </div>
-        <div className="text-sm text-app-muted">Live wind: {formatSpeedMs(liveWindSpeed)}</div>
+        <div className="text-sm leading-6 text-slate-600">Live wind: {formatSpeedMs(liveWindSpeed)}</div>
       </div>
 
-      <div className="mt-5 space-y-4">
-        {bars.map((bar) => (
-          <div key={bar.label}>
-            <div className="mb-2 flex items-center justify-between gap-3">
-              <span className="text-sm text-app-muted">{bar.label}</span>
-              <span className="text-sm font-medium text-app-text">{formatSpeedMs(bar.value)}</span>
-            </div>
-            <div className="h-3 rounded-full bg-slate-100">
-              <div
-                className={`h-3 rounded-full ${bar.tone}`}
-                style={{ width: `${Math.min(100, (bar.value / maxValue) * 100)}%` }}
-              />
-            </div>
+      <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4 h-72">
+        <div className="flex h-full flex-col justify-between">
+          <div className="space-y-5">
+            {bars.map((bar) => (
+              <div key={bar.label}>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <span className="text-sm leading-6 text-slate-600">{bar.label}</span>
+                  <span className="text-sm font-medium text-slate-900">{formatSpeedMs(bar.value)}</span>
+                </div>
+                <div className="h-3 rounded-full bg-white">
+                  <div
+                    className={`h-3 rounded-full ${bar.tone}`}
+                    style={{ width: `${Math.min(100, (bar.value / maxValue) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="mt-6 rounded-2xl border border-app-line bg-slate-50 p-4">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <p className="text-sm font-medium text-app-text">Instant what-if</p>
-            <p className="text-sm text-app-muted">Move the wind slider to preview the new outcome.</p>
+          <div className="rounded-xl border border-slate-200 bg-white p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-medium text-slate-700">Instant what-if</p>
+                <p className="text-xs leading-5 text-slate-500">Move the wind slider to preview the new outcome.</p>
+              </div>
+              <span className="rounded-full px-3 py-1 text-xs font-semibold text-slate-700 ring-1 ring-inset ring-slate-200">
+                {liveResult.riskLevel}
+              </span>
+            </div>
+            <input
+              className="mt-4 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200"
+              type="range"
+              min="0"
+              max="50"
+              step="1"
+              value={liveWindSpeed}
+              onChange={(event) => onLiveWindChange(Number(event.target.value))}
+            />
           </div>
-          <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-app-text shadow-sm">
-            {liveResult.riskLevel}
-          </span>
         </div>
-
-        <input
-          className="mt-4 h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200"
-          type="range"
-          min="0"
-          max="50"
-          step="1"
-          value={liveWindSpeed}
-          onChange={(event) => onLiveWindChange(Number(event.target.value))}
-        />
       </div>
     </div>
   );

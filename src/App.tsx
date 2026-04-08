@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ExplanationCard } from './components/ExplanationCard';
 import { EngineeringDetails } from './components/EngineeringDetails';
 import { Navbar } from './components/Navbar';
@@ -9,17 +9,11 @@ import { analyzeTreeRisk, buildWhatIfScenario, hydrateSpeciesDefaults, type Scen
 import { exampleScenario } from './core/presets';
 
 function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [draft, setDraft] = useState<ScenarioInput>(exampleScenario.scenario);
   const [result, setResult] = useState(() => analyzeTreeRisk(exampleScenario.scenario));
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [liveWindSpeed, setLiveWindSpeed] = useState(result.input.windSpeedMs);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    document.body.className = theme === 'dark' ? 'bg-slate-950' : 'bg-app-bg';
-  }, [theme]);
 
   const liveResult = useMemo(() => buildWhatIfScenario(result, liveWindSpeed), [result, liveWindSpeed]);
 
@@ -43,11 +37,18 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-app-bg text-app-text">
-      <Navbar theme={theme} onToggleTheme={() => setTheme((value) => (value === 'light' ? 'dark' : 'light'))} />
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <Navbar />
 
-      <main className="mx-auto max-w-7xl px-4 pb-12 pt-24 sm:px-6 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-12">
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Analyze Tree Risk</h1>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Set up a tree scenario, analyze it instantly in the browser, and review the result without leaving this page.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
           <aside className="lg:col-span-4">
             <ScenarioForm
               value={draft}
