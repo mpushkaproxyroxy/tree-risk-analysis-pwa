@@ -10,10 +10,10 @@ export function RiskSummaryCard({ result }: { result: AnalysisResult }) {
         : 'rounded-full bg-red-50 text-red-700 ring-1 ring-inset ring-red-200';
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5 lg:p-6">
       <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Tree failure risk</p>
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        <span className={`px-3 py-1 text-xs font-semibold tracking-wide ${badgeClass}`}>
+        <span className={`px-3 py-1.5 text-xs font-semibold tracking-wide ${badgeClass}`}>
           {result.riskLevel}
         </span>
       </div>
@@ -25,7 +25,7 @@ export function RiskSummaryCard({ result }: { result: AnalysisResult }) {
         <p className="mt-3 text-sm leading-6 text-slate-600">{result.governingFactor}</p>
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <Metric
           label="Critical wind"
           value={formatSpeedMs(result.governingCriticalWindMs)}

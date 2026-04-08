@@ -37,13 +37,13 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-slate-50 text-slate-900">
       <Navbar />
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Analyze Tree Risk</h1>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-[1.75rem]">Analyze Tree Risk</h1>
+          <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-base">
             Set up a tree scenario, analyze it instantly in the browser, and review the result without leaving this page.
           </p>
         </div>
