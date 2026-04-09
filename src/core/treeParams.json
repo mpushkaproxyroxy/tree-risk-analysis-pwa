@@ -1,0 +1,278 @@
+{
+  "constants": {
+    "airDensity": {
+      "value": 1.225,
+      "sourceType": "calibrated from MATLAB"
+    },
+    "gravity": {
+      "value": 9.81,
+      "sourceType": "literature-based"
+    },
+    "centerOfPressureRatio": {
+      "value": 0.6,
+      "sourceType": "calibrated from MATLAB"
+    },
+    "centerOfGravityOffsetRatio": {
+      "value": 0.2,
+      "sourceType": "calibrated from MATLAB"
+    },
+    "curvatureAmplificationFactor": {
+      "value": 0.45,
+      "sourceType": "calibrated from MATLAB"
+    },
+    "defaultCurvatureFactor": {
+      "value": 0.2,
+      "sourceType": "calibrated from MATLAB"
+    }
+  },
+  "species": {
+    "Oak": {
+      "material": {
+        "modulusElasticity": {
+          "value": 55000000,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "density": {
+          "value": 900,
+          "sourceType": "calibrated from MATLAB"
+        }
+      },
+      "morphology": {
+        "rootType": {
+          "value": "Plate",
+          "sourceType": "calibrated from MATLAB"
+        },
+        "heightClass": {
+          "value": 18,
+          "sourceType": "assumed"
+        },
+        "diameterClass": {
+          "value": 60,
+          "sourceType": "assumed"
+        },
+        "rootFactor": {
+          "value": 1,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "rootDepth": {
+          "value": 0.9,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "rootPlateRadius": {
+          "value": 4,
+          "sourceType": "calibrated from MATLAB"
+        }
+      }
+    },
+    "Maple": {
+      "material": {
+        "modulusElasticity": {
+          "value": 50000000,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "density": {
+          "value": 700,
+          "sourceType": "calibrated from MATLAB"
+        }
+      },
+      "morphology": {
+        "rootType": {
+          "value": "Moderate",
+          "sourceType": "calibrated from MATLAB"
+        },
+        "heightClass": {
+          "value": 16,
+          "sourceType": "assumed"
+        },
+        "diameterClass": {
+          "value": 52,
+          "sourceType": "assumed"
+        },
+        "rootFactor": {
+          "value": 1,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "rootDepth": {
+          "value": 0.95,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "rootPlateRadius": {
+          "value": 3.2,
+          "sourceType": "calibrated from MATLAB"
+        }
+      }
+    },
+    "Bamboo": {
+      "material": {
+        "modulusElasticity": {
+          "value": 80000000,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "density": {
+          "value": 650,
+          "sourceType": "calibrated from MATLAB"
+        }
+      },
+      "morphology": {
+        "rootType": {
+          "value": "Fibrous",
+          "sourceType": "calibrated from MATLAB"
+        },
+        "heightClass": {
+          "value": 12,
+          "sourceType": "assumed"
+        },
+        "diameterClass": {
+          "value": 16,
+          "sourceType": "assumed"
+        },
+        "rootFactor": {
+          "value": 1,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "rootDepth": {
+          "value": 0.45,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "rootPlateRadius": {
+          "value": 2.5,
+          "sourceType": "calibrated from MATLAB"
+        }
+      }
+    }
+  },
+  "soil": {
+    "Dry": {
+      "anchorageReduction": {
+        "value": 1.15,
+        "sourceType": "calibrated from MATLAB"
+      },
+      "unitWeightKnM3": {
+        "value": 19,
+        "sourceType": "calibrated from MATLAB"
+      }
+    },
+    "Normal": {
+      "anchorageReduction": {
+        "value": 1,
+        "sourceType": "calibrated from MATLAB"
+      },
+      "unitWeightKnM3": {
+        "value": 17,
+        "sourceType": "calibrated from MATLAB"
+      }
+    },
+    "Saturated": {
+      "anchorageReduction": {
+        "value": 0.6,
+        "sourceType": "calibrated from MATLAB"
+      },
+      "unitWeightKnM3": {
+        "value": 12,
+        "sourceType": "calibrated from MATLAB"
+      }
+    }
+  },
+  "aero": {
+    "dragBySeason": {
+      "LeafOn": {
+        "Oak": {
+          "value": 1.2,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "Maple": {
+          "value": 1.1,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "Bamboo": {
+          "value": 0.85,
+          "sourceType": "calibrated from MATLAB"
+        }
+      },
+      "LeafOff": {
+        "Oak": {
+          "value": 0.6,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "Maple": {
+          "value": 0.55,
+          "sourceType": "calibrated from MATLAB"
+        },
+        "Bamboo": {
+          "value": 0.65,
+          "sourceType": "calibrated from MATLAB"
+        }
+      }
+    },
+    "projectedAreaFactorBySeason": {
+      "LeafOn": {
+        "value": 1.75,
+        "sourceType": "calibrated from MATLAB"
+      },
+      "LeafOff": {
+        "value": 0.65,
+        "sourceType": "calibrated from MATLAB"
+      }
+    },
+    "exposureModifiers": {
+      "Sheltered": {
+        "value": 0.82,
+        "sourceType": "assumed"
+      },
+      "Typical": {
+        "value": 1,
+        "sourceType": "assumed"
+      },
+      "Exposed": {
+        "value": 1.18,
+        "sourceType": "assumed"
+      }
+    }
+  },
+  "anchoring": {
+    "coefficientsByRootType": {
+      "Plate": {
+        "value": 2.2,
+        "sourceType": "calibrated from MATLAB"
+      },
+      "Moderate": {
+        "value": 2.8,
+        "sourceType": "calibrated from MATLAB"
+      },
+      "Fibrous": {
+        "value": 3.6,
+        "sourceType": "calibrated from MATLAB"
+      },
+      "Taproot": {
+        "value": 4.2,
+        "sourceType": "calibrated from MATLAB"
+      }
+    }
+  },
+  "defects": {
+    "none": {
+      "resistanceModifier": {
+        "value": 1,
+        "sourceType": "assumed"
+      }
+    },
+    "decay": {
+      "resistanceModifier": {
+        "value": 0.72,
+        "sourceType": "assumed"
+      }
+    },
+    "lean": {
+      "resistanceModifier": {
+        "value": 0.84,
+        "sourceType": "assumed"
+      }
+    },
+    "rootDamage": {
+      "resistanceModifier": {
+        "value": 0.68,
+        "sourceType": "assumed"
+      }
+    }
+  }
+}

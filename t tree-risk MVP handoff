@@ -1,0 +1,29 @@
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/App.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/EngineeringDetails.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/ExplanationCard.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/ResultChartCard.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/RiskSummaryCard.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/ScenarioForm.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/core/format.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/core/model.test.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/core/model.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/core/presets.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/index.css', LF will be replaced by CRLF the next time Git touches it
+ package-lock.json                     | 366 [32m+++++++++++++++++++++++++++++++++[m[31m-[m
+ package.json                          |  10 [32m+[m[31m-[m
+ src/App.tsx                           | 140 [32m++++++++[m[31m-----[m
+ src/components/AdvancedToggle.tsx     |  29 [31m---[m
+ src/components/EngineeringDetails.tsx |  56 [32m++++[m[31m--[m
+ src/components/ExplanationCard.tsx    |  29 [32m++[m[31m-[m
+ src/components/Navbar.tsx             |   8 [32m+[m[31m-[m
+ src/components/ResultChartCard.tsx    | 133 [32m++++++[m[31m------[m
+ src/components/RiskSummaryCard.tsx    |  62 [32m+++[m[31m---[m
+ src/components/ScenarioForm.tsx       | 244 [32m+++++++++[m[31m--------------[m
+ src/components/SectionCard.tsx        |   6 [32m+[m[31m-[m
+ src/core/format.ts                    |   2 [32m+[m[31m-[m
+ src/core/model.test.ts                |  54 [32m+++[m[31m--[m
+ src/core/model.ts                     | 339 [32m++++++++++++[m[31m-------------------[m
+ src/core/presets.ts                   |  15 [32m+[m[31m-[m
+ src/index.css                         |  22 [32m+[m[31m-[m
+ 16 files changed, 910 insertions(+), 605 deletions(-)
