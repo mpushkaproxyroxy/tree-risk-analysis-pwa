@@ -7,7 +7,7 @@ export function formatSpeedMph(value: number): string {
 }
 
 export function formatMoment(value: number): string {
-  return `${value.toFixed(1)} kN-m`;
+  return `${value.toFixed(1)} kN·m`;
 }
 
 export function formatStress(value: number): string {

@@ -1,65 +1,63 @@
-import type { ReactNode } from 'react';
-import type { CanopyState, DefectFlag, ExposureClass, ScenarioInput, SoilCondition, Species } from '../core/model';
+import type { ChangeEvent } from 'react';
 import { exampleScenario } from '../core/presets';
+import type { RootType, ScenarioInput, SoilCondition, Species } from '../core/model';
+import { AdvancedToggle } from './AdvancedToggle';
 import { SectionCard } from './SectionCard';
 
 interface ScenarioFormProps {
   value: ScenarioInput;
+  advancedOpen: boolean;
+  onAdvancedToggle: () => void;
   onChange: (next: ScenarioInput) => void;
   onAnalyze: () => void;
   onLoadExample: () => void;
 }
 
-const WIND_OPTIONS = [20, 25, 30, 35, 40, 45, 50];
-const DEFECT_OPTIONS: { value: DefectFlag; label: string; helper: string }[] = [
-  { value: 'decay', label: 'Decay', helper: 'Reduces available section and anchorage resistance.' },
-  { value: 'lean', label: 'Lean', helper: 'Indicates existing asymmetry and load bias.' },
-  { value: 'rootDamage', label: 'Root damage', helper: 'Represents compromised root support near the base.' },
-];
-
-export function ScenarioForm({ value, onChange, onAnalyze, onLoadExample }: ScenarioFormProps) {
+export function ScenarioForm({
+  value,
+  advancedOpen,
+  onAdvancedToggle,
+  onChange,
+  onAnalyze,
+  onLoadExample,
+}: ScenarioFormProps) {
   function update<K extends keyof ScenarioInput>(key: K, nextValue: ScenarioInput[K]) {
     onChange({ ...value, [key]: nextValue });
   }
 
-  function toggleDefect(defect: DefectFlag) {
-    const nextFlags = value.defectFlags.includes(defect)
-      ? value.defectFlags.filter((entry) => entry !== defect)
-      : [...value.defectFlags, defect];
-
-    update('defectFlags', nextFlags);
+  function onNumberChange<K extends keyof ScenarioInput>(key: K) {
+    return (event: ChangeEvent<HTMLInputElement>) => {
+      update(key, Number(event.target.value) as ScenarioInput[K]);
+    };
   }
 
   return (
     <div className="space-y-6">
-      <SectionCard
-        title="Scenario setup"
-        description="Choose the categorical tree and site state, then run the screening result."
-      >
-        <div className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4">
+      <SectionCard title="Scenario Setup" description="Enter a simple scenario, then analyze the risk in one step.">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
           <div className="flex flex-col gap-3">
             <div>
-              <p className="text-sm font-semibold text-slate-800">{exampleScenario.label}</p>
-              <p className="text-xs leading-5 text-slate-500">{exampleScenario.description}</p>
+              <p className="text-sm font-medium text-slate-700">{exampleScenario.label}</p>
+              <p className="text-xs leading-5 text-slate-500">See how the model works instantly.</p>
             </div>
             <button
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
               onClick={onLoadExample}
               type="button"
             >
-              Load example scenario
+              Load Example Scenario
             </button>
           </div>
         </div>
       </SectionCard>
 
-      <SectionCard title="Tree state" description="Set the tree and canopy condition the crew is actually looking at.">
+      <SectionCard title="Tree" description="Start with the tree itself: species, height, and trunk diameter.">
         <div className="space-y-4">
-          <Field label="Species class">
+          <Field label="Species">
             <select
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm transition outline-none focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70 sm:py-2.5 sm:text-sm"
-              value={value.speciesClass}
-              onChange={(event) => update('speciesClass', event.target.value as Species)}
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              value={value.species}
+              onChange={(event) => update('species', event.target.value as Species)}
             >
               <option>Oak</option>
               <option>Maple</option>
@@ -67,26 +65,37 @@ export function ScenarioForm({ value, onChange, onAnalyze, onLoadExample }: Scen
             </select>
           </Field>
 
-          <Field label="Canopy state">
-            <select
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm transition outline-none focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70 sm:py-2.5 sm:text-sm"
-              value={value.canopyState}
-              onChange={(event) => update('canopyState', event.target.value as CanopyState)}
-            >
-              <option value="LeafOn">Leaf-on</option>
-              <option value="LeafOff">Leaf-off</option>
-            </select>
+          <Field label="Height (m)">
+            <input
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              type="number"
+              min="0.5"
+              step="0.1"
+              value={value.heightMeters}
+              onChange={onNumberChange('heightMeters')}
+            />
+          </Field>
+
+          <Field label="Diameter (cm)">
+            <input
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              type="number"
+              min="3"
+              step="1"
+              value={value.diameterCm}
+              onChange={onNumberChange('diameterCm')}
+            />
           </Field>
         </div>
       </SectionCard>
 
-      <SectionCard title="Site conditions" description="These conditions drive wind demand and available anchorage.">
+      <SectionCard title="Soil" description="Soil type and moisture level shape how much root support is available.">
         <div className="space-y-4">
-          <Field label="Soil condition">
+          <Field label="Soil type">
             <select
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm transition outline-none focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70 sm:py-2.5 sm:text-sm"
-              value={value.soilClass}
-              onChange={(event) => update('soilClass', event.target.value as SoilCondition)}
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              value={value.soilCondition}
+              onChange={(event) => update('soilCondition', event.target.value as SoilCondition)}
             >
               <option>Dry</option>
               <option>Normal</option>
@@ -94,78 +103,121 @@ export function ScenarioForm({ value, onChange, onAnalyze, onLoadExample }: Scen
             </select>
           </Field>
 
-          <Field label="Exposure class">
-            <select
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm transition outline-none focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70 sm:py-2.5 sm:text-sm"
-              value={value.exposureClass}
-              onChange={(event) => update('exposureClass', event.target.value as ExposureClass)}
-            >
-              <option value="Sheltered">Sheltered</option>
-              <option value="Typical">Typical</option>
-              <option value="Exposed">Exposed</option>
-            </select>
-          </Field>
-
-          <Field label="Wind speed">
-            <select
-              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm transition outline-none focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70 sm:py-2.5 sm:text-sm"
-              value={value.windSpeed}
-              onChange={(event) => update('windSpeed', Number(event.target.value))}
-            >
-              {WIND_OPTIONS.map((windSpeed) => (
-                <option key={windSpeed} value={windSpeed}>
-                  {windSpeed} mph
-                </option>
-              ))}
-            </select>
+          <Field label={`Moisture level (${value.moistureLevel}%)`} helper="Higher moisture reduces root anchorage in the screening model.">
+            <input
+              className="h-3 w-full cursor-pointer appearance-none rounded-full bg-slate-200"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value={value.moistureLevel}
+              onChange={onNumberChange('moistureLevel')}
+            />
           </Field>
         </div>
       </SectionCard>
 
-      <SectionCard title="Observed defects" description="Only mark what is visible and relevant in the field.">
-        <div className="space-y-3">
-          {DEFECT_OPTIONS.map((option) => {
-            const checked = value.defectFlags.includes(option.value);
-            return (
-              <label
-                key={option.value}
-                className="flex min-h-12 items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 px-4 py-3"
-              >
-                <input
-                  className="mt-1 h-4 w-4 rounded border-slate-300 accent-slate-950"
-                  type="checkbox"
-                  checked={checked}
-                  onChange={() => toggleDefect(option.value)}
-                />
-                <span className="block">
-                  <span className="block text-sm font-medium text-slate-800">{option.label}</span>
-                  <span className="block text-xs leading-5 text-slate-500">{option.helper}</span>
-                </span>
-              </label>
-            );
-          })}
+      <SectionCard title="Wind" description="Set the current wind condition you want to screen against.">
+        <div className="space-y-4">
+          <Field label={`Wind speed (${value.windSpeedMs.toFixed(0)} m/s)`}>
+            <input
+              className="h-3 w-full cursor-pointer appearance-none rounded-full bg-slate-200"
+              type="range"
+              min="0"
+              max="50"
+              step="1"
+              value={value.windSpeedMs}
+              onChange={onNumberChange('windSpeedMs')}
+            />
+          </Field>
+
+          <Field label="Gust factor">
+            <input
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              type="number"
+              min="0.8"
+              max="1.6"
+              step="0.05"
+              value={value.gustFactor}
+              onChange={onNumberChange('gustFactor')}
+            />
+          </Field>
         </div>
       </SectionCard>
 
-      <div className="sticky bottom-3 z-20 rounded-[26px] border border-slate-200/90 bg-white/95 p-4 shadow-[0_18px_44px_-28px_rgba(15,23,42,0.38)] backdrop-blur sm:p-5 lg:static lg:p-6">
+      <AdvancedToggle open={advancedOpen} onToggle={onAdvancedToggle}>
+        <div className="space-y-4">
+          <Field label="Drag coefficient">
+            <input
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              type="number"
+              min="0.1"
+              max="2.5"
+              step="0.05"
+              value={value.dragCoefficient}
+              onChange={onNumberChange('dragCoefficient')}
+            />
+          </Field>
+
+          <Field label="Root depth (m)">
+            <input
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              type="number"
+              min="0.05"
+              max="5"
+              step="0.05"
+              value={value.rootDepthMeters}
+              onChange={onNumberChange('rootDepthMeters')}
+            />
+          </Field>
+
+          <Field label="Safety factor target">
+            <input
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              type="number"
+              min="0.8"
+              max="2"
+              step="0.05"
+              value={value.safetyFactorTarget}
+              onChange={onNumberChange('safetyFactorTarget')}
+            />
+          </Field>
+
+          <Field label="Root type">
+            <select
+              className="w-full rounded-xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 sm:py-2.5 sm:text-sm"
+              value={value.rootType}
+              onChange={(event) => update('rootType', event.target.value as RootType)}
+            >
+              <option>Plate</option>
+              <option>Moderate</option>
+              <option>Fibrous</option>
+              <option>Taproot</option>
+            </select>
+          </Field>
+        </div>
+      </AdvancedToggle>
+
+      <div className="sticky bottom-3 z-20 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5 lg:static lg:p-6">
         <button
-          className="inline-flex min-h-14 w-full items-center justify-center rounded-xl bg-slate-950 px-4 py-4 text-base font-semibold text-white shadow-[0_14px_30px_-18px_rgba(15,23,42,0.8)] transition hover:bg-slate-800 active:bg-slate-950 sm:min-h-12 sm:py-3 sm:text-sm"
+          className="inline-flex min-h-14 w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-4 text-base font-semibold text-white hover:bg-slate-800 active:bg-slate-950 sm:min-h-12 sm:py-3 sm:text-sm"
           onClick={onAnalyze}
           type="button"
         >
-          Analyze risk
+          Analyze Risk
         </button>
-        <p className="mt-3 text-center text-xs leading-5 text-slate-500">Categorical screening only. Runs instantly in your browser.</p>
+        <p className="mt-3 text-center text-xs leading-5 text-slate-500">Runs instantly in your browser.</p>
       </div>
     </div>
   );
 }
 
-function Field({ label, children }: { label: string; children: ReactNode }) {
+function Field({ label, helper, children }: { label: string; helper?: string; children: React.ReactNode }) {
   return (
-    <label className="block space-y-2">
-      <span className="block text-sm font-medium text-slate-700 sm:text-[0.95rem]">{label}</span>
+    <label className="block">
+      <span className="mb-2 block text-sm font-medium text-slate-700 sm:text-base">{label}</span>
       {children}
+      {helper ? <span className="mt-1 block text-xs leading-5 text-slate-500">{helper}</span> : null}
     </label>
   );
 }
