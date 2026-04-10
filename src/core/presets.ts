@@ -1,4 +1,4 @@
-import { getDefaultScenario, normalizeScenarioInput, type ScenarioInput } from './model';
+import { getDefaultScenario, hydrateSpeciesDefaults, type ScenarioInput } from './model';
 
 export interface ScenarioPreset {
   id: string;
@@ -8,13 +8,14 @@ export interface ScenarioPreset {
 }
 
 export const exampleScenario: ScenarioPreset = {
-  id: 'oak-saturated-leaf-on',
+  id: 'oak-storm',
   label: 'Load Example Scenario',
-  description: 'Oak in saturated soil with a full canopy under a 35 mph storm.',
-  scenario: normalizeScenarioInput({
+  description: 'Broad-canopy oak in wet soil with gusty summer winds.',
+  scenario: hydrateSpeciesDefaults({
     ...getDefaultScenario('Oak'),
-    soilClass: 'Saturated',
-    canopyState: 'LeafOn',
-    windSpeed: 35,
+    soilCondition: 'Saturated',
+    moistureLevel: 78,
+    windSpeedMs: 24,
+    gustFactor: 1.15,
   }),
 };
