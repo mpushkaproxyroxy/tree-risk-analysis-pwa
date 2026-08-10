@@ -1,3 +1,6 @@
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { EngineeringDetails } from './components/EngineeringDetails';
 import { useMemo, useState } from 'react';
 import { ExplanationCard } from './components/ExplanationCard';
 import { EngineeringDetails } from './components/EngineeringDetails';
@@ -39,6 +42,7 @@ function App() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-50 text-slate-900">
       <Navbar />
+      <Analytics />
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <div className="mb-6">
