@@ -15,11 +15,14 @@ import { exampleScenario } from './core/presets';
 
 function App() {
   const [draft, setDraft] = useState(exampleScenario.scenario);
+
   const [result, setResult] = useState(() =>
     analyzeTreeRisk(exampleScenario.scenario)
   );
+
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
+
   const [liveWindSpeed, setLiveWindSpeed] = useState(
     result.input.windSpeedMs
   );
